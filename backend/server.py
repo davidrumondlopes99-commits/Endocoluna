@@ -11,6 +11,11 @@ from typing import List, Optional
 from datetime import datetime, timezone
 
 from articles_data import ARTICLES
+from articles_more import EXTRA_ARTICLES
+from articles_more2 import EXTRA_ARTICLES_2
+from articles_more3 import EXTRA_ARTICLES_3
+
+ALL_ARTICLES = ARTICLES + EXTRA_ARTICLES + EXTRA_ARTICLES_2 + EXTRA_ARTICLES_3
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
@@ -68,12 +73,20 @@ class NewsletterResponse(BaseModel):
 # -------- Seed --------
 @app.on_event("startup")
 async def seed_articles():
-    existing = await db.articles.count_documents({})
-    if existing == 0:
-        await db.articles.insert_many(
-            [{**a, "id": str(uuid.uuid4()), "views": 0} for a in ARTICLES]
-        )
-        logger.info("Seeded %d articles", len(ARTICLES))
+    # Idempotent seed: insert articles whose slug doesn't exist yet
+    existing_slugs = set()
+    async for doc in db.articles.find({}, {"slug": 1, "_id": 0}):
+        existing_slugs.add(doc["slug"])
+
+    new_docs = [
+        {**a, "id": str(uuid.uuid4()), "views": 0}
+        for a in ALL_ARTICLES
+        if a["slug"] not in existing_slugs
+    ]
+    if new_docs:
+        await db.articles.insert_many(new_docs)
+        logger.info("Seeded %d new articles", len(new_docs))
+
     # ensure newsletter unique index
     await db.newsletter.create_index("email", unique=True)
 
@@ -95,7 +108,7 @@ CATEGORY_MAP = {
 async def list_articles(
     category: Optional[str] = None,
     q: Optional[str] = None,
-    limit: int = 20,
+    limit: int = 100,
 ):
     query = {}
     if category and category in CATEGORY_MAP:
@@ -107,10 +120,8 @@ async def list_articles(
             {"excerpt": regex},
             {"content_html": regex},
         ]
-    cursor = db.articles.find(query, {"_id": 0, "content_html": 0}).limit(limit)
-    docs = await cursor.to_list(length=limit)
-    docs.sort(key=lambda d: d.get("published_at", ""), reverse=True)
-    return docs
+    cursor = db.articles.find(query, {"_id": 0, "content_html": 0}).sort("published_at", -1).limit(limit)
+    return await cursor.to_list(length=limit)
 
 
 @api_router.get("/articles/most-read", response_model=List[ArticleSummary])

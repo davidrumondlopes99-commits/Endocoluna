@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import Home from "@/pages/Home";
 import ArticleDetail from "@/pages/ArticleDetail";
 import Category from "@/pages/Category";
@@ -24,6 +25,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <WhatsAppButton />
       </BrowserRouter>
       <Toaster position="top-right" richColors />
     </div>

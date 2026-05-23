@@ -1,4 +1,5 @@
-import { Award, BookOpen, ShieldCheck, GraduationCap, Microscope, Users } from "lucide-react";
+import { Award, BookOpen, ShieldCheck, GraduationCap, Microscope, Users, Instagram, MessageCircle, MapPin, Globe } from "lucide-react";
+import { SOCIAL_LINKS } from "../lib/socialLinks";
 
 const values = [
   { icon: ShieldCheck, title: "Baseado em evidências", desc: "Cada conteúdo é verificado e referenciado em diretrizes clínicas atualizadas." },
@@ -102,18 +103,68 @@ export default function About() {
       </section>
 
       <section className="bg-[#1A365D] text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
-          <h3 className="text-2xl sm:text-3xl font-bold">Tem uma dúvida ou sugestão de pauta?</h3>
-          <p className="mt-3 text-slate-300 max-w-2xl mx-auto">
-            Escreva para a redação. Selecionamos as melhores perguntas dos leitores para transformar em conteúdo.
-          </p>
-          <a
-            href="mailto:contato@neurosaude.com.br"
-            data-testid="contact-email"
-            className="inline-block mt-6 bg-[#319795] hover:bg-white hover:text-[#1A365D] text-white font-semibold px-7 py-3 rounded-full transition-colors"
-          >
-            contato@neurosaude.com.br
-          </a>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl sm:text-3xl font-bold">Quer agendar uma consulta?</h3>
+            <p className="mt-3 text-slate-300 max-w-2xl mx-auto">
+              Entre em contato pelos canais oficiais do Dr. Matheus Lopes.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+            <a
+              href={SOCIAL_LINKS.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="about-whatsapp-cta"
+              className="flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-semibold px-5 py-4 rounded-xl transition-colors"
+            >
+              <MessageCircle className="w-5 h-5 flex-shrink-0" />
+              <div>
+                <div className="text-xs uppercase tracking-wider opacity-80">WhatsApp</div>
+                <div>Agendar consulta</div>
+              </div>
+            </a>
+            <a
+              href={SOCIAL_LINKS.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="about-instagram-cta"
+              className="flex items-center gap-3 bg-white/10 hover:bg-[#319795] text-white font-semibold px-5 py-4 rounded-xl transition-colors"
+            >
+              <Instagram className="w-5 h-5 flex-shrink-0" />
+              <div>
+                <div className="text-xs uppercase tracking-wider opacity-80">Instagram</div>
+                <div>@drmatheuslopesneuro</div>
+              </div>
+            </a>
+            <a
+              href={SOCIAL_LINKS.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="about-website-cta"
+              className="flex items-center gap-3 bg-white/10 hover:bg-[#319795] text-white font-semibold px-5 py-4 rounded-xl transition-colors"
+            >
+              <Globe className="w-5 h-5 flex-shrink-0" />
+              <div>
+                <div className="text-xs uppercase tracking-wider opacity-80">Site oficial</div>
+                <div>drmatheuslopes.com.br</div>
+              </div>
+            </a>
+            <a
+              href={SOCIAL_LINKS.maps}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="about-address-cta"
+              className="flex items-center gap-3 bg-white/10 hover:bg-[#319795] text-white font-semibold px-5 py-4 rounded-xl transition-colors"
+            >
+              <MapPin className="w-5 h-5 flex-shrink-0" />
+              <div>
+                <div className="text-xs uppercase tracking-wider opacity-80">Consultório</div>
+                <div>Ver endereço no mapa</div>
+              </div>
+            </a>
+          </div>
         </div>
       </section>
     </div>

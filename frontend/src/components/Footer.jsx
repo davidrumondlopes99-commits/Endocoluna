@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Brain, Instagram, Facebook, Linkedin, Youtube, AlertTriangle } from "lucide-react";
+import { Brain, Instagram, Linkedin, Youtube, MessageCircle, MapPin, Globe, AlertTriangle, ExternalLink } from "lucide-react";
+import { SOCIAL_LINKS } from "../lib/socialLinks";
 
 export const Footer = () => {
   return (
@@ -30,10 +31,20 @@ export const Footer = () => {
                 <div className="text-[11px] uppercase tracking-[0.18em] text-[#319795] font-semibold">Blog Médico</div>
               </div>
             </div>
-            <p className="text-slate-300 text-sm leading-relaxed max-w-md">
+            <p className="text-slate-300 text-sm leading-relaxed max-w-md mb-5">
               Plataforma editorial dedicada à divulgação de informação científica em Neurocirurgia e
               Cirurgia de Coluna, escrita em linguagem acessível para pacientes e familiares.
             </p>
+
+            <a
+              href={SOCIAL_LINKS.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="footer-whatsapp-cta"
+              className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white font-semibold px-5 py-2.5 rounded-full text-sm transition-colors"
+            >
+              <MessageCircle className="w-4 h-4" /> Agendar consulta
+            </a>
           </div>
 
           <div>
@@ -46,30 +57,39 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-4">Institucional</h4>
-            <ul className="space-y-2 text-sm text-slate-300">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-4">Contato</h4>
+            <ul className="space-y-3 text-sm text-slate-300">
+              <li>
+                <a href={SOCIAL_LINKS.website} target="_blank" rel="noopener noreferrer" data-testid="footer-website-link" className="flex items-center gap-2 hover:text-[#319795] transition-colors">
+                  <Globe className="w-3.5 h-3.5" /> Site oficial <ExternalLink className="w-3 h-3 opacity-60" />
+                </a>
+              </li>
+              <li>
+                <a href={SOCIAL_LINKS.maps} target="_blank" rel="noopener noreferrer" data-testid="footer-address-link" className="flex items-center gap-2 hover:text-[#319795] transition-colors">
+                  <MapPin className="w-3.5 h-3.5" /> Endereço do consultório
+                </a>
+              </li>
               <li><Link data-testid="footer-about-link" to="/sobre" className="hover:text-[#319795] transition-colors">Sobre o Blog</Link></li>
               <li><Link data-testid="footer-privacy-link" to="/privacidade" className="hover:text-[#319795] transition-colors">Política de Privacidade</Link></li>
-              <li><Link data-testid="footer-terms-link" to="/termos" className="hover:text-[#319795] transition-colors">Termos de Uso</Link></li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <p className="text-xs text-slate-400">
-            © {new Date().getFullYear()} NeuroSaúde. Todos os direitos reservados.
+            © {new Date().getFullYear()} NeuroSaúde — Dr. Matheus Lopes (CRM/SP 147238). Todos os direitos reservados.
           </p>
           <div className="flex items-center gap-3">
-            <a data-testid="social-instagram" href="#" aria-label="Instagram" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#319795] flex items-center justify-center transition-colors">
+            <a data-testid="social-whatsapp" href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#25D366] flex items-center justify-center transition-colors">
+              <MessageCircle className="w-4 h-4" />
+            </a>
+            <a data-testid="social-instagram" href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#319795] flex items-center justify-center transition-colors">
               <Instagram className="w-4 h-4" />
             </a>
-            <a data-testid="social-facebook" href="#" aria-label="Facebook" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#319795] flex items-center justify-center transition-colors">
-              <Facebook className="w-4 h-4" />
-            </a>
-            <a data-testid="social-linkedin" href="#" aria-label="LinkedIn" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#319795] flex items-center justify-center transition-colors">
+            <a data-testid="social-linkedin" href={SOCIAL_LINKS.linktree} target="_blank" rel="noopener noreferrer" aria-label="Linktree" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#319795] flex items-center justify-center transition-colors">
               <Linkedin className="w-4 h-4" />
             </a>
-            <a data-testid="social-youtube" href="#" aria-label="YouTube" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#319795] flex items-center justify-center transition-colors">
+            <a data-testid="social-youtube" href={SOCIAL_LINKS.linktree} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#319795] flex items-center justify-center transition-colors">
               <Youtube className="w-4 h-4" />
             </a>
           </div>

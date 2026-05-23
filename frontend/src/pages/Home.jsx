@@ -110,7 +110,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([fetchArticles(), fetchFeatured()])
+    Promise.all([fetchArticles({ limit: 100 }), fetchFeatured()])
       .then(([list, feat]) => {
         setArticles(list);
         setFeatured(feat);

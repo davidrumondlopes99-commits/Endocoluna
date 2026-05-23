@@ -5,10 +5,11 @@ export const API = `${BACKEND_URL}/api`;
 
 export const api = axios.create({ baseURL: API });
 
-export const fetchArticles = async ({ category, q } = {}) => {
+export const fetchArticles = async ({ category, q, limit } = {}) => {
   const params = {};
   if (category) params.category = category;
   if (q) params.q = q;
+  if (limit) params.limit = limit;
   const { data } = await api.get("/articles", { params });
   return data;
 };

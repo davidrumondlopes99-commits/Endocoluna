@@ -28,7 +28,7 @@ export default function Category({ searchMode = false }) {
 
   useEffect(() => {
     setLoading(true);
-    const filters = searchMode ? { q } : { category: slug };
+    const filters = searchMode ? { q, limit: 100 } : { category: slug, limit: 100 };
     fetchArticles(filters)
       .then(setArticles)
       .finally(() => setLoading(false));

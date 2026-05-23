@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Award, BookOpen, TrendingUp } from "lucide-react";
+import { Mail, Award, BookOpen, TrendingUp, Instagram, MessageCircle } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 import { fetchMostRead, subscribeNewsletter, CATEGORY_META } from "../lib/api";
+import { SOCIAL_LINKS } from "../lib/socialLinks";
 
 const EditorWidget = () => (
   <div data-testid="editor-widget" className="bg-white border border-slate-200 rounded-xl p-6">
@@ -36,6 +37,26 @@ const EditorWidget = () => (
         </div>
         <div className="text-[11px] text-slate-500 uppercase tracking-wide">Minimamente invasiva</div>
       </div>
+    </div>
+    <div className="mt-4 grid grid-cols-2 gap-2">
+      <a
+        href={SOCIAL_LINKS.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-testid="editor-instagram-link"
+        className="flex items-center justify-center gap-1.5 text-xs font-semibold text-[#319795] hover:text-[#1A365D] border border-[#319795]/30 hover:bg-[#319795]/5 rounded-md py-2 transition-colors"
+      >
+        <Instagram className="w-3.5 h-3.5" /> Instagram
+      </a>
+      <a
+        href={SOCIAL_LINKS.whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-testid="editor-whatsapp-link"
+        className="flex items-center justify-center gap-1.5 text-xs font-semibold text-white bg-[#25D366] hover:bg-[#128C7E] rounded-md py-2 transition-colors"
+      >
+        <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
+      </a>
     </div>
   </div>
 );
