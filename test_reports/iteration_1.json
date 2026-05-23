@@ -1,0 +1,34 @@
+{
+  "summary": "Complete e2e testing of NeuroSaúde blog. All 12 backend pytest cases pass (articles list, category filter, text search, featured, most-read, article detail w/ view counter, 404, categories, newsletter signup, duplicate 409, invalid email 422). All critical frontend flows pass: Home loads with hero/grid/sidebar, Categories dropdown navigates to /categoria/{brain,spine,prevention}, search submits to /buscar and filters, article detail renders with TOC (6 H2 entries) + breadcrumb + author + share, About page renders, footer disclaimer + category links work, newsletter signup shows success and duplicate error toasts.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "About page (/sobre)", "issues": ["About page does NOT render the Sidebar (Newsletter widget). The newsletter signup is only available on Home, Article Detail and Category pages. This is acceptable, but the request mentioned newsletter signup should validate on all pages — minor: could be added to About for consistency."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_neurosaude_api.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py: logger is used inside seed_articles() at startup but logger is defined AFTER load + app creation (line 180). The startup hook references `logger` before it's bound at module load — works only because seed_articles is invoked at app startup which happens after full module import, so OK but fragile; recommend moving logging.basicConfig + logger = logging.getLogger above the @app.on_event('startup') definition.",
+    "server.py: CORSMiddleware is added AFTER app.include_router. FastAPI requires middleware to be added before routes for it to apply correctly in some scenarios. Move app.add_middleware(CORSMiddleware,...) before app.include_router(api_router). Currently CORS works because middleware order is OK at runtime, but it's an anti-pattern.",
+    "server.py uses deprecated @app.on_event('startup'/'shutdown'); migrate to lifespan context manager (FastAPI >=0.93).",
+    "ArticleDetail.jsx: contentWithIds regex replaces ALL `<h2>` occurrences and reassigns ids using a closure variable `i` — works but mutating outer scope from replacer is fragile. Consider using doc.querySelectorAll on the parsed DOM and re-serialize, or pass index in replacement function.",
+    "Newsletter widget is rendered in Sidebar which is NOT present on the About page — if newsletter ubiquity is desired, render it in App.js footer area or add Sidebar to About."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_neurosaude_api.py (created)"
+  ],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "seed_data_creation": "None added by tests. Tests use unique UUID emails to avoid polluting newsletter collection; 3 articles were already seeded by startup hook.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend pytest file at /app/backend/tests/test_neurosaude_api.py covers all 6 endpoints including duplicate newsletter (409) and view counter increment. Frontend tested via Playwright covering home, hero CTA, categories dropdown (brain/spine/prevention), search, article detail w/ TOC, breadcrumb, About, newsletter success+duplicate, footer category links. Newsletter widget lives in Sidebar so it's not present on /sobre — test it on Home or any article page."
+}
