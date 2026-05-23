@@ -10,7 +10,7 @@ ARTICLES = [
         "image_url": "https://static.prod-images.emergentagent.com/jobs/11721837-3a81-4cef-8d93-7d18b3b33d31/images/1eeb3b0ba0fee19c4165662f2164805150ba354df0f6cb8a321f1e5037030fdd.png",
         "reading_time": 12,
         "published_at": "2026-01-18",
-        "author": "Dr. Ricardo Almeida",
+        "author": "Dr. Matheus Lopes",
         "content_html": """
 <p>A hérnia de disco é, sem dúvida, uma das expressões mais temidas dentro do consultório de qualquer especialista em coluna. Para muitos pacientes, o diagnóstico soa como sentença automática de cirurgia — uma percepção que está longe da realidade clínica atual. Nas últimas duas décadas, a medicina avançou de forma significativa no entendimento da história natural dessa condição, e hoje sabemos que a imensa maioria dos casos pode ser conduzida com tratamento conservador, sem necessidade de intervenção cirúrgica.</p>
 
@@ -128,7 +128,7 @@ ARTICLES = [
         "image_url": "https://static.prod-images.emergentagent.com/jobs/11721837-3a81-4cef-8d93-7d18b3b33d31/images/8ad4056b49063aee11fba39283788d82b8c525bb544a84374e8d7ab9c2cf8995.png",
         "reading_time": 13,
         "published_at": "2026-01-25",
-        "author": "Dr. Ricardo Almeida",
+        "author": "Dr. Matheus Lopes",
         "content_html": """
 <p>Poucos diagnósticos têm o poder de paralisar emocionalmente um paciente como o de aneurisma cerebral. A imagem mental de uma "bomba-relógio" dentro do cérebro está enraizada no imaginário popular, alimentada por filmes, séries e relatos sensacionalistas. A realidade, no entanto, é bem mais matizada: aneurismas cerebrais são relativamente comuns, atingindo cerca de 3% da população adulta, e a grande maioria nunca apresentará sintomas ou complicações ao longo da vida.</p>
 
@@ -258,7 +258,7 @@ ARTICLES = [
         "image_url": "https://static.prod-images.emergentagent.com/jobs/11721837-3a81-4cef-8d93-7d18b3b33d31/images/91a26b912de9e855ca4fc419d0edf6b9421e57f838e4a3366c5678fda124bad9.png",
         "reading_time": 11,
         "published_at": "2026-02-02",
-        "author": "Dr. Ricardo Almeida",
+        "author": "Dr. Matheus Lopes",
         "content_html": """
 <p>A dor nas costas é, possivelmente, a queixa mais comum em consultórios médicos no mundo todo. Estima-se que <strong>até 80% das pessoas terão pelo menos um episódio significativo de dor lombar ao longo da vida</strong>. Em um país como o Brasil, com a popularização do trabalho remoto, longas horas em frente ao computador e níveis crescentes de sedentarismo, o problema cresce em ritmo acelerado, afetando produtividade, sono, humor e qualidade de vida.</p>
 

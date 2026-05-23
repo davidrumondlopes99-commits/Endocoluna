@@ -11,31 +11,30 @@ const EditorWidget = () => (
     <h4 className="text-xs uppercase tracking-[0.18em] font-bold text-[#319795] mb-4">Editor Médico</h4>
     <div className="flex items-start gap-4">
       <img
-        src="https://images.pexels.com/photos/8460157/pexels-photo-8460157.jpeg"
-        alt="Dr. Ricardo Almeida"
+        src="https://customer-assets.emergentagent.com/job_neuroeduca/artifacts/idhvttqs_640431106_18364933696205942_4601043174928282564_n.jpg"
+        alt="Dr. Matheus Lopes"
         className="w-20 h-20 rounded-full object-cover border-2 border-[#319795]/20"
       />
       <div className="flex-1 min-w-0">
-        <h5 className="font-bold text-[#1A365D]">Dr. Ricardo Almeida</h5>
-        <p className="text-xs text-slate-500 mt-0.5">Neurocirurgião — CRM-SP 123.456</p>
+        <h5 className="font-bold text-[#1A365D]">Dr. Matheus Lopes</h5>
+        <p className="text-xs text-slate-500 mt-0.5">CRM/SP 147238</p>
         <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-          Especialista em coluna e neurocirurgia vascular, com mais de 15 anos de prática clínica e
-          acadêmica.
+          Neurocirurgião, especialista em coluna e dor. Ênfase em cirurgia minimamente invasiva.
         </p>
       </div>
     </div>
     <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-2 gap-3 text-center">
       <div>
         <div className="flex items-center justify-center gap-1.5 text-[#1A365D]">
-          <Award className="w-4 h-4" /> <span className="font-bold">15+</span>
+          <Award className="w-4 h-4" /> <span className="font-bold">1000+</span>
         </div>
-        <div className="text-[11px] text-slate-500 uppercase tracking-wide">Anos</div>
+        <div className="text-[11px] text-slate-500 uppercase tracking-wide">Endoscopias</div>
       </div>
       <div>
         <div className="flex items-center justify-center gap-1.5 text-[#1A365D]">
-          <BookOpen className="w-4 h-4" /> <span className="font-bold">40+</span>
+          <BookOpen className="w-4 h-4" /> <span className="font-bold">MIS</span>
         </div>
-        <div className="text-[11px] text-slate-500 uppercase tracking-wide">Publicações</div>
+        <div className="text-[11px] text-slate-500 uppercase tracking-wide">Minimamente invasiva</div>
       </div>
     </div>
   </div>

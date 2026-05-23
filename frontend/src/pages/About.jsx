@@ -47,41 +47,54 @@ export default function About() {
         <div className="grid md:grid-cols-12 gap-10 items-start">
           <div className="md:col-span-4">
             <img
-              src="https://images.pexels.com/photos/8460157/pexels-photo-8460157.jpeg"
-              alt="Dr. Ricardo Almeida"
+              src="https://customer-assets.emergentagent.com/job_neuroeduca/artifacts/idhvttqs_640431106_18364933696205942_4601043174928282564_n.jpg"
+              alt="Dr. Matheus Lopes"
               className="w-full rounded-2xl border border-slate-200 object-cover aspect-[4/5]"
             />
           </div>
           <div className="md:col-span-8">
             <div className="text-xs uppercase tracking-[0.18em] font-bold text-[#319795] mb-2">Editor Médico</div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#1A365D] tracking-tight">Dr. Ricardo Almeida</h2>
-            <p className="mt-1 text-slate-500">Neurocirurgião — CRM-SP 123.456 / RQE 7890</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#1A365D] tracking-tight">Dr. Matheus Lopes</h2>
+            <p className="mt-1 text-slate-500">Neurocirurgião — CRM/SP 147238</p>
+
+            <ul className="mt-6 space-y-3 text-base text-slate-700">
+              <li className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#319795] flex-shrink-0" />
+                <span><strong className="text-[#1A365D]">Neurocirurgião</strong>, especialista em coluna e dor.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#319795] flex-shrink-0" />
+                <span>Ênfase em <strong className="text-[#1A365D]">cirurgia minimamente invasiva</strong>.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#319795] flex-shrink-0" />
+                <span><strong className="text-[#1A365D]">+ de 1.000 cirurgias endoscópicas</strong> realizadas.</span>
+              </li>
+            </ul>
 
             <p className="mt-6 text-base text-slate-600 leading-relaxed">
-              Graduado em Medicina pela Universidade de São Paulo, com residência em Neurocirurgia no Hospital
-              das Clínicas e fellowship em Cirurgia Minimamente Invasiva de Coluna. Atua há mais de 15 anos em
-              centros de referência, com foco em hérnias de disco, estenoses, aneurismas cerebrais e doenças
-              vasculares do sistema nervoso central.
+              Atuação dedicada ao tratamento de hérnias de disco, estenoses, dor crônica e outras patologias
+              da coluna, sempre com foco em técnicas modernas, recuperação mais rápida e cuidado individualizado.
             </p>
 
             <div className="mt-8 grid grid-cols-3 gap-4">
               <div className="border border-slate-200 rounded-xl p-4">
                 <div className="flex items-center gap-2 text-[#1A365D] font-bold text-2xl">
-                  <Award className="w-5 h-5 text-[#319795]" />15+
+                  <Award className="w-5 h-5 text-[#319795]" />1.000+
                 </div>
-                <div className="text-xs text-slate-500 mt-1">Anos de prática</div>
+                <div className="text-xs text-slate-500 mt-1">Endoscopias realizadas</div>
               </div>
               <div className="border border-slate-200 rounded-xl p-4">
                 <div className="flex items-center gap-2 text-[#1A365D] font-bold text-2xl">
-                  <BookOpen className="w-5 h-5 text-[#319795]" />40+
+                  <BookOpen className="w-5 h-5 text-[#319795]" />MIS
                 </div>
-                <div className="text-xs text-slate-500 mt-1">Publicações científicas</div>
+                <div className="text-xs text-slate-500 mt-1">Cirurgia minimamente invasiva</div>
               </div>
               <div className="border border-slate-200 rounded-xl p-4">
                 <div className="flex items-center gap-2 text-[#1A365D] font-bold text-2xl">
-                  <GraduationCap className="w-5 h-5 text-[#319795]" />3
+                  <GraduationCap className="w-5 h-5 text-[#319795]" />CRM
                 </div>
-                <div className="text-xs text-slate-500 mt-1">Especializações</div>
+                <div className="text-xs text-slate-500 mt-1">SP 147238</div>
               </div>
             </div>
           </div>
