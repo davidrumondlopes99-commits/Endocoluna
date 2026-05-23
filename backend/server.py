@@ -1,4 +1,5 @@
 from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi.responses import Response
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -159,6 +160,38 @@ async def get_categories():
         {"slug": "spine", "label": "Coluna", "description": "Cirurgia de coluna e patologias vertebrais"},
         {"slug": "prevention", "label": "Prevenção", "description": "Saúde, ergonomia e bem-estar"},
     ]
+
+
+@api_router.get("/sitemap.xml")
+async def sitemap():
+    base = os.environ.get("PUBLIC_SITE_URL", "https://neuroeduca.preview.emergentagent.com")
+    urls = [
+        {"loc": f"{base}/", "priority": "1.0", "changefreq": "daily"},
+        {"loc": f"{base}/sobre", "priority": "0.7", "changefreq": "monthly"},
+        {"loc": f"{base}/categoria/spine", "priority": "0.9", "changefreq": "weekly"},
+        {"loc": f"{base}/categoria/brain", "priority": "0.9", "changefreq": "weekly"},
+        {"loc": f"{base}/categoria/prevention", "priority": "0.9", "changefreq": "weekly"},
+    ]
+    async for doc in db.articles.find({}, {"slug": 1, "published_at": 1, "_id": 0}).sort("published_at", -1):
+        urls.append({
+            "loc": f"{base}/artigo/{doc['slug']}",
+            "lastmod": doc.get("published_at", ""),
+            "priority": "0.8",
+            "changefreq": "monthly",
+        })
+
+    xml = ['<?xml version="1.0" encoding="UTF-8"?>',
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for u in urls:
+        xml.append("  <url>")
+        xml.append(f"    <loc>{u['loc']}</loc>")
+        if u.get("lastmod"):
+            xml.append(f"    <lastmod>{u['lastmod']}</lastmod>")
+        xml.append(f"    <changefreq>{u['changefreq']}</changefreq>")
+        xml.append(f"    <priority>{u['priority']}</priority>")
+        xml.append("  </url>")
+    xml.append("</urlset>")
+    return Response(content="\n".join(xml), media_type="application/xml")
 
 
 @api_router.post("/newsletter", response_model=NewsletterResponse)

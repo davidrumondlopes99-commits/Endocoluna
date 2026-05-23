@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams, useSearchParams, Link } from "react-router-dom";
 import { fetchArticles, CATEGORY_META } from "../lib/api";
 import { ArticleCard } from "../components/ArticleCard";
 import { Sidebar } from "../components/Sidebar";
+import { SEO } from "../components/SEO";
 
 const META = {
   brain: {
@@ -25,23 +26,30 @@ export default function Category({ searchMode = false }) {
   const q = params.get("q") || "";
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(12);
 
   useEffect(() => {
     setLoading(true);
+    setVisibleCount(12);
     const filters = searchMode ? { q, limit: 100 } : { category: slug, limit: 100 };
     fetchArticles(filters)
       .then(setArticles)
       .finally(() => setLoading(false));
   }, [slug, q, searchMode]);
 
-  const meta = META[slug] || {
+  const meta = useMemo(() => META[slug] || {
     title: searchMode ? `Resultados para "${q}"` : "Categoria",
     desc: searchMode ? "Artigos encontrados com base na sua busca." : "",
-  };
+  }, [slug, searchMode, q]);
   const cmeta = CATEGORY_META[slug];
 
   return (
     <div data-testid={searchMode ? "search-page" : `category-page-${slug}`}>
+      <SEO
+        title={meta.title}
+        description={meta.desc || `Artigos sobre ${meta.title.toLowerCase()} no NeuroSaúde, blog médico do Dr. Matheus Lopes.`}
+        noindex={searchMode}
+      />
       <section className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
           {!searchMode && cmeta && (
@@ -73,11 +81,25 @@ export default function Category({ searchMode = false }) {
                 <Link to="/" className="inline-block mt-4 text-[#319795] font-semibold">← Voltar à home</Link>
               </div>
             ) : (
-              <div className="grid sm:grid-cols-2 gap-6">
-                {articles.map((a, i) => (
-                  <ArticleCard key={a.id} article={a} index={i} />
-                ))}
-              </div>
+              <>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {articles.slice(0, visibleCount).map((a, i) => (
+                    <ArticleCard key={a.id} article={a} index={i} />
+                  ))}
+                </div>
+                {visibleCount < articles.length && (
+                  <div className="flex justify-center mt-10">
+                    <button
+                      onClick={() => setVisibleCount((c) => c + 12)}
+                      data-testid="load-more-category"
+                      className="inline-flex items-center gap-2 bg-[#1A365D] hover:bg-[#319795] text-white font-semibold px-7 py-3 rounded-full transition-colors"
+                    >
+                      Ver mais artigos
+                      <span className="text-xs opacity-80">({articles.length - visibleCount} restantes)</span>
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
           <div className="lg:col-span-4">

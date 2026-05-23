@@ -4,6 +4,7 @@ import { ArrowRight, Clock, Calendar, ShieldCheck, BookOpen, Sparkles } from "lu
 import { fetchArticles, fetchFeatured, CATEGORY_META, formatDate } from "../lib/api";
 import { ArticleCard } from "../components/ArticleCard";
 import { Sidebar } from "../components/Sidebar";
+import { SEO } from "../components/SEO";
 
 const Hero = ({ featured }) => {
   if (!featured) return null;
@@ -108,6 +109,7 @@ export default function Home() {
   const [articles, setArticles] = useState([]);
   const [featured, setFeatured] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(12);
 
   useEffect(() => {
     Promise.all([fetchArticles({ limit: 100 }), fetchFeatured()])
@@ -120,6 +122,9 @@ export default function Home() {
 
   return (
     <div data-testid="home-page">
+      <SEO
+        description="Blog médico especializado em Neurocirurgia e Cirurgia de Coluna. Mais de 60 artigos sobre hérnia de disco, dor lombar, aneurisma cerebral, escoliose, cirurgia minimamente invasiva e mais — escritos por Dr. Matheus Lopes (CRM/SP 147238)."
+      />
       <Hero featured={featured} />
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
@@ -150,11 +155,25 @@ export default function Home() {
                 ))}
               </div>
             ) : (
-              <div className="grid sm:grid-cols-2 gap-6" data-testid="articles-grid">
-                {articles.map((a, idx) => (
-                  <ArticleCard key={a.id} article={a} index={idx} />
-                ))}
-              </div>
+              <>
+                <div className="grid sm:grid-cols-2 gap-6" data-testid="articles-grid">
+                  {articles.slice(0, visibleCount).map((a, idx) => (
+                    <ArticleCard key={a.id} article={a} index={idx} />
+                  ))}
+                </div>
+                {visibleCount < articles.length && (
+                  <div className="flex justify-center mt-10">
+                    <button
+                      onClick={() => setVisibleCount((c) => c + 12)}
+                      data-testid="load-more-articles"
+                      className="inline-flex items-center gap-2 bg-[#1A365D] hover:bg-[#319795] text-white font-semibold px-7 py-3 rounded-full transition-colors"
+                    >
+                      Ver mais artigos
+                      <span className="text-xs opacity-80">({articles.length - visibleCount} restantes)</span>
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
 

@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { Clock, Calendar, ChevronRight, ArrowLeft, Share2 } from "lucide-react";
 import { fetchArticle, CATEGORY_META, formatDate } from "../lib/api";
 import { Sidebar } from "../components/Sidebar";
+import { SEO } from "../components/SEO";
 
 export default function ArticleDetail() {
   const { slug } = useParams();
@@ -63,6 +64,13 @@ export default function ArticleDetail() {
 
   return (
     <div data-testid="article-detail-page">
+      <SEO
+        title={article.title}
+        description={article.excerpt}
+        image={article.image_url}
+        type="article"
+        article={article}
+      />
       {/* Breadcrumb */}
       <div className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-2 text-xs text-slate-500">

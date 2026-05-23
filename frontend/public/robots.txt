@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://neuroeduca.preview.emergentagent.com/api/sitemap.xml
+
+# Important pages
+Allow: /artigo/
+Allow: /categoria/
+Allow: /sobre
+
+# Crawl delay (be polite)
+Crawl-delay: 1

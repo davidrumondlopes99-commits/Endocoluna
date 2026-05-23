@@ -1,5 +1,6 @@
 import { Award, BookOpen, ShieldCheck, GraduationCap, Microscope, Users, Instagram, MessageCircle, MapPin, Globe } from "lucide-react";
 import { SOCIAL_LINKS } from "../lib/socialLinks";
+import { SEO } from "../components/SEO";
 
 const values = [
   { icon: ShieldCheck, title: "Baseado em evidências", desc: "Cada conteúdo é verificado e referenciado em diretrizes clínicas atualizadas." },
@@ -11,6 +12,10 @@ const values = [
 export default function About() {
   return (
     <div data-testid="about-page">
+      <SEO
+        title="Sobre o Blog"
+        description="Conheça o NeuroSaúde, blog médico do Dr. Matheus Lopes (Neurocirurgião, CRM/SP 147238), especialista em coluna e dor, com mais de 1.000 cirurgias endoscópicas realizadas."
+      />
       <section className="bg-white border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
           <div className="text-xs uppercase tracking-[0.18em] font-bold text-[#319795] mb-3">Sobre o Blog</div>
