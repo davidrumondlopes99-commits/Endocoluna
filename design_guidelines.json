@@ -1,0 +1,109 @@
+{
+  "theme": "Light",
+  "archetype": "Archetype 1 (Organic & Earthy / Medical Clean)",
+  "color_palette": {
+    "primary": {
+      "hex": "#1A365D",
+      "name": "Deep Navy",
+      "tailwind_class": "bg-[#1A365D]",
+      "usage": "Headings, primary CTAs, trust-building areas. Use text-[#1A365D] for all primary H1/H2."
+    },
+    "secondary": {
+      "hex": "#319795",
+      "name": "Soft Teal",
+      "tailwind_class": "bg-[#319795]",
+      "usage": "Accents, category badges, read-time indicators, hover states."
+    },
+    "backgrounds": {
+      "main": "#F7FAFC",
+      "card": "#FFFFFF",
+      "footer": "#1A365D"
+    },
+    "text": {
+      "primary": "#2D3748",
+      "muted": "#4A5568",
+      "inverse": "#FFFFFF",
+      "navy": "#1A365D"
+    }
+  },
+  "typography": {
+    "headings": {
+      "family": "Montserrat",
+      "weight": "font-bold",
+      "tracking": "tracking-tight",
+      "usage": "Highly readable, structured hierarchy for blog posts. Avoid Inter for headings."
+    },
+    "body": {
+      "family": "Montserrat",
+      "weight": "font-medium",
+      "usage": "Clean, legible long-form reading. Use leading-relaxed for body text."
+    }
+  },
+  "layout_and_spacing": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "spacing_scale": "Use generous padding (py-16, py-24) to create a sterile, breathable layout.",
+    "cards": "Flat solid surfaces with subtle border (border-slate-200), minimal shadow (shadow-sm). No heavy box-shadows. Generous internal padding (p-6).",
+    "article_content": "Max-width prose (max-w-3xl) for optimal reading line length. Generous line-height."
+  },
+  "components": {
+    "header": {
+      "style": "Sticky top-0 z-50. Solid white (bg-white) or glass (bg-white/90 backdrop-blur-md) with a crisp 1px bottom border (border-slate-200). Must contain Text Logo (Deep Navy), Categories Dropdown, About link, and Search bar."
+    },
+    "hero": {
+      "style": "Welcoming, trust-building. Split layout or large feature block. Featured Article highlighted prominently with the `hero_featured` image. Navy text for trust."
+    },
+    "article_card": {
+      "style": "Clean white background, border-slate-200, rounded-xl overflow-hidden. Contains image (aspect-video), teal category badge, read time, date, navy title, and muted excerpt."
+    },
+    "sidebar": {
+      "style": "Right-hand sidebar. Use sticky positioning for 'About the Medical Editor' or 'Newsletter'. Widget cards should have clear borders (border-slate-200)."
+    },
+    "footer": {
+      "style": "Deep Navy background (bg-[#1A365D]) with white text. Must contain a prominent medical educational disclaimer, privacy links, and social media links."
+    },
+    "buttons": {
+      "style": "Solid Navy (#1A365D) or Teal (#319795), rounded-md or rounded-full, crisp text, subtle hover state."
+    }
+  },
+  "media": {
+    "images": [
+      {
+        "category": "hero_featured",
+        "url": "https://static.prod-images.emergentagent.com/jobs/11721837-3a81-4cef-8d93-7d18b3b33d31/images/82ba2b39d6ef16938189865504baf2209e615eabc1a3c89c7102af011648bfdc.png",
+        "description": "Featured article image: abstract brain networks."
+      },
+      {
+        "category": "spine_herniated",
+        "url": "https://static.prod-images.emergentagent.com/jobs/11721837-3a81-4cef-8d93-7d18b3b33d31/images/1eeb3b0ba0fee19c4165662f2164805150ba354df0f6cb8a321f1e5037030fdd.png",
+        "description": "Article image: Hérnia de Disco (Herniated Disc)."
+      },
+      {
+        "category": "brain_aneurysm",
+        "url": "https://static.prod-images.emergentagent.com/jobs/11721837-3a81-4cef-8d93-7d18b3b33d31/images/8ad4056b49063aee11fba39283788d82b8c525bb544a84374e8d7ab9c2cf8995.png",
+        "description": "Article image: Aneurisma Cerebral (Brain Aneurysm)."
+      },
+      {
+        "category": "back_pain",
+        "url": "https://static.prod-images.emergentagent.com/jobs/11721837-3a81-4cef-8d93-7d18b3b33d31/images/91a26b912de9e855ca4fc419d0edf6b9421e57f838e4a3366c5678fda124bad9.png",
+        "description": "Article image: Sinais de Alerta na Dor nas Costas (Back Pain Red Flags)."
+      },
+      {
+        "category": "medical_editor",
+        "url": "https://images.pexels.com/photos/8460157/pexels-photo-8460157.jpeg",
+        "description": "Sidebar widget photo: Medical Editor profile."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Build a Multi-page React application containing Home, Article Detail, Category, and About pages.",
+    "Use react-router-dom for navigation.",
+    "Use Lucide-React for all icons (search, chevron, clock, etc).",
+    "Implement Shadcn UI for standard components: DropdownMenu for Categories, Input for Search, Button for CTAs.",
+    "Content must be in Brazilian Portuguese (PT-BR) as requested.",
+    "DO NOT build a SaaS landing page layout; structure it strictly as an editorial medical blog with a strong focus on readability.",
+    "For the Article Detail page, include an H2/H3 hierarchy and a 'Table of Contents' (Índice).",
+    "Add 'data-testid' to ALL interactive elements (links, buttons, inputs).",
+    "Ensure perfect contrast ratios (WCAG AA) especially with the Teal (#319795) and Navy (#1A365D) colors.",
+    "Newsletter signup in the sidebar should visually pop but remain sterile (e.g., subtle Teal background or border)."
+  ]
+}
