@@ -89,7 +89,7 @@ export const Footer = () => {
             <a data-testid="social-linkedin" href={SOCIAL_LINKS.linktree} target="_blank" rel="noopener noreferrer" aria-label="Linktree" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#319795] flex items-center justify-center transition-colors">
               <Linkedin className="w-4 h-4" />
             </a>
-            <a data-testid="social-youtube" href={SOCIAL_LINKS.linktree} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#319795] flex items-center justify-center transition-colors">
+            <a data-testid="social-youtube" href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#FF0000] flex items-center justify-center transition-colors">
               <Youtube className="w-4 h-4" />
             </a>
           </div>

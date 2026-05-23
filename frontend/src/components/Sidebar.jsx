@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Award, BookOpen, TrendingUp, Instagram, MessageCircle } from "lucide-react";
+import { Mail, Award, BookOpen, TrendingUp, Instagram, MessageCircle, Youtube } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
@@ -12,7 +12,7 @@ const EditorWidget = () => (
     <h4 className="text-xs uppercase tracking-[0.18em] font-bold text-[#319795] mb-4">Editor Médico</h4>
     <div className="flex items-start gap-4">
       <img
-        src="https://customer-assets.emergentagent.com/job_neuroeduca/artifacts/idhvttqs_640431106_18364933696205942_4601043174928282564_n.jpg"
+        src="https://customer-assets.emergentagent.com/job_neuroeduca/artifacts/ec65g3l5_617A9485.JPG"
         alt="Dr. Matheus Lopes"
         className="w-20 h-20 rounded-full object-cover border-2 border-[#319795]/20"
       />
@@ -38,7 +38,7 @@ const EditorWidget = () => (
         <div className="text-[11px] text-slate-500 uppercase tracking-wide">Minimamente invasiva</div>
       </div>
     </div>
-    <div className="mt-4 grid grid-cols-2 gap-2">
+    <div className="mt-4 grid grid-cols-3 gap-2">
       <a
         href={SOCIAL_LINKS.instagram}
         target="_blank"
@@ -46,7 +46,16 @@ const EditorWidget = () => (
         data-testid="editor-instagram-link"
         className="flex items-center justify-center gap-1.5 text-xs font-semibold text-[#319795] hover:text-[#1A365D] border border-[#319795]/30 hover:bg-[#319795]/5 rounded-md py-2 transition-colors"
       >
-        <Instagram className="w-3.5 h-3.5" /> Instagram
+        <Instagram className="w-3.5 h-3.5" />
+      </a>
+      <a
+        href={SOCIAL_LINKS.youtube}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-testid="editor-youtube-link"
+        className="flex items-center justify-center gap-1.5 text-xs font-semibold text-[#FF0000] hover:text-white border border-[#FF0000]/30 hover:bg-[#FF0000] rounded-md py-2 transition-colors"
+      >
+        <Youtube className="w-3.5 h-3.5" />
       </a>
       <a
         href={SOCIAL_LINKS.whatsapp}
@@ -55,7 +64,7 @@ const EditorWidget = () => (
         data-testid="editor-whatsapp-link"
         className="flex items-center justify-center gap-1.5 text-xs font-semibold text-white bg-[#25D366] hover:bg-[#128C7E] rounded-md py-2 transition-colors"
       >
-        <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
+        <MessageCircle className="w-3.5 h-3.5" />
       </a>
     </div>
   </div>

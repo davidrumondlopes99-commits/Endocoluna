@@ -1,4 +1,4 @@
-import { Award, BookOpen, ShieldCheck, GraduationCap, Microscope, Users, Instagram, MessageCircle, MapPin, Globe } from "lucide-react";
+import { Award, BookOpen, ShieldCheck, GraduationCap, Microscope, Users, Instagram, MessageCircle, MapPin, Globe, Youtube } from "lucide-react";
 import { SOCIAL_LINKS } from "../lib/socialLinks";
 import { SEO } from "../components/SEO";
 
@@ -53,7 +53,7 @@ export default function About() {
         <div className="grid md:grid-cols-12 gap-10 items-start">
           <div className="md:col-span-4">
             <img
-              src="https://customer-assets.emergentagent.com/job_neuroeduca/artifacts/idhvttqs_640431106_18364933696205942_4601043174928282564_n.jpg"
+              src="https://customer-assets.emergentagent.com/job_neuroeduca/artifacts/ec65g3l5_617A9485.JPG"
               alt="Dr. Matheus Lopes"
               className="w-full rounded-2xl border border-slate-200 object-cover aspect-[4/5]"
             />
@@ -140,6 +140,19 @@ export default function About() {
               <Instagram className="w-5 h-5 flex-shrink-0" />
               <div>
                 <div className="text-xs uppercase tracking-wider opacity-80">Instagram</div>
+                <div>@drmatheuslopesneuro</div>
+              </div>
+            </a>
+            <a
+              href={SOCIAL_LINKS.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="about-youtube-cta"
+              className="flex items-center gap-3 bg-white/10 hover:bg-[#FF0000] text-white font-semibold px-5 py-4 rounded-xl transition-colors"
+            >
+              <Youtube className="w-5 h-5 flex-shrink-0" />
+              <div>
+                <div className="text-xs uppercase tracking-wider opacity-80">YouTube</div>
                 <div>@drmatheuslopesneuro</div>
               </div>
             </a>

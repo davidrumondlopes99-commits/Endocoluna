@@ -104,7 +104,7 @@ export default function ArticleDetail() {
           <div className="mt-8 flex flex-wrap items-center gap-5 text-sm text-slate-500 border-t border-slate-100 pt-6">
             <div className="flex items-center gap-2">
               <img
-                src="https://customer-assets.emergentagent.com/job_neuroeduca/artifacts/idhvttqs_640431106_18364933696205942_4601043174928282564_n.jpg"
+                src="https://customer-assets.emergentagent.com/job_neuroeduca/artifacts/ec65g3l5_617A9485.JPG"
                 alt={article.author}
                 className="w-9 h-9 rounded-full object-cover border border-slate-200"
               />
