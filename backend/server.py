@@ -210,6 +210,50 @@ async def newsletter_signup(payload: NewsletterSignup):
     return doc
 
 
+# YouTube channel feed cache
+_youtube_cache = {"data": None, "ts": 0}
+
+
+@api_router.get("/youtube/videos")
+async def youtube_videos(limit: int = 6):
+    """Fetch latest videos from Dr. Matheus Lopes' YouTube channel (RSS, cached 1h)."""
+    import time
+    import re
+    import urllib.request
+
+    now = time.time()
+    if _youtube_cache["data"] and now - _youtube_cache["ts"] < 3600:
+        return _youtube_cache["data"][:limit]
+
+    channel_id = "UCmYFo7gtwGENIKl0ARORRnQ"
+    url = f"https://www.youtube.com/feeds/videos.xml?channel_id={channel_id}"
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        xml = urllib.request.urlopen(req, timeout=8).read().decode("utf-8")
+    except Exception as e:
+        logger.warning("YouTube RSS fetch failed: %s", e)
+        return _youtube_cache["data"][:limit] if _youtube_cache["data"] else []
+
+    entries = re.findall(
+        r"<yt:videoId>([^<]+)</yt:videoId>.*?<title>([^<]+)</title>.*?<published>([^<]+)</published>",
+        xml, re.DOTALL,
+    )
+    videos = [
+        {
+            "id": vid,
+            "title": title,
+            "published_at": pub,
+            "thumbnail": f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg",
+            "url": f"https://www.youtube.com/watch?v={vid}",
+            "embed_url": f"https://www.youtube.com/embed/{vid}",
+        }
+        for vid, title, pub in entries
+    ]
+    _youtube_cache["data"] = videos
+    _youtube_cache["ts"] = now
+    return videos[:limit]
+
+
 app.include_router(api_router)
 
 app.add_middleware(

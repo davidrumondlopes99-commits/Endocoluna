@@ -39,6 +39,11 @@ export const subscribeNewsletter = async (payload) => {
   return data;
 };
 
+export const fetchYouTubeVideos = async (limit = 6) => {
+  const { data } = await api.get("/youtube/videos", { params: { limit } });
+  return data;
+};
+
 export const CATEGORY_META = {
   brain: { label: "Cérebro", color: "#319795" },
   spine: { label: "Coluna", color: "#2C7A7B" },
