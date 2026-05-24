@@ -1,10 +1,12 @@
 import { useEffect, useState, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Clock, Calendar, ChevronRight, ArrowLeft, Share2 } from "lucide-react";
 import { fetchArticle, CATEGORY_META, formatDate } from "../lib/api";
 import { Sidebar } from "../components/Sidebar";
 import { SEO } from "../components/SEO";
 import { ArticleVideo } from "../components/ArticleVideo";
+import { RelatedArticles } from "../components/RelatedArticles";
 import { getRelatedVideo } from "../lib/youtubeMap";
 
 export default function ArticleDetail() {
@@ -44,6 +46,56 @@ export default function ArticleDetail() {
     [article]
   );
 
+  // FAQ Schema (FAQPage) - extract H2 + first <p> after as Q&A
+  const faqSchema = useMemo(() => {
+    if (!article?.content_html) return null;
+    const doc = new DOMParser().parseFromString(article.content_html, "text/html");
+    const h2s = Array.from(doc.querySelectorAll("h2"));
+    const faqs = [];
+    for (const h2 of h2s) {
+      const question = (h2.textContent || "").trim();
+      if (!question) continue;
+      let sibling = h2.nextElementSibling;
+      while (sibling && sibling.tagName !== "P") sibling = sibling.nextElementSibling;
+      if (sibling && sibling.tagName === "P") {
+        const answer = (sibling.textContent || "").trim();
+        if (answer.length > 30) {
+          faqs.push({
+            "@type": "Question",
+            name: question,
+            acceptedAnswer: { "@type": "Answer", text: answer },
+          });
+        }
+      }
+    }
+    if (faqs.length < 2) return null;
+    return {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs,
+    };
+  }, [article]);
+
+  // BreadcrumbList Schema
+  const breadcrumbSchema = useMemo(() => {
+    if (!article || typeof window === "undefined") return null;
+    const origin = window.location.origin;
+    return {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${origin}/` },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: article.category_label,
+          item: `${origin}/categoria/${article.category}`,
+        },
+        { "@type": "ListItem", position: 3, name: article.title, item: window.location.href },
+      ],
+    };
+  }, [article]);
+
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -78,6 +130,16 @@ export default function ArticleDetail() {
         type="article"
         article={article}
       />
+      {(faqSchema || breadcrumbSchema) && (
+        <Helmet>
+          {breadcrumbSchema && (
+            <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+          )}
+          {faqSchema && (
+            <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+          )}
+        </Helmet>
+      )}
       {/* Breadcrumb */}
       <div className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-2 text-xs text-slate-500">
@@ -160,6 +222,8 @@ export default function ArticleDetail() {
             />
 
             <ArticleVideo video={relatedVideo} />
+
+            <RelatedArticles slug={article.slug} category={article.category} />
 
             <div className="mt-12 pt-8 border-t border-slate-200 flex items-center justify-between">
               <Link to={`/categoria/${article.category}`} className="text-sm font-semibold text-[#319795] hover:text-[#1A365D]">

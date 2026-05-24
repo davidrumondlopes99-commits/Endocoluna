@@ -39,6 +39,11 @@ export const subscribeNewsletter = async (payload) => {
   return data;
 };
 
+export const fetchRelatedArticles = async (slug, limit = 4) => {
+  const { data } = await api.get(`/articles/${slug}/related`, { params: { limit } });
+  return data;
+};
+
 export const fetchYouTubeVideos = async (limit = 6) => {
   const { data } = await api.get("/youtube/videos", { params: { limit } });
   return data;

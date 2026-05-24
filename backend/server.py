@@ -91,6 +91,42 @@ async def seed_articles():
     # ensure newsletter unique index
     await db.newsletter.create_index("email", unique=True)
 
+    # Regenerate static sitemap.xml in the React public folder (served at /sitemap.xml)
+    try:
+        await _write_static_sitemap()
+    except Exception as e:
+        logger.warning("Could not write static sitemap.xml: %s", e)
+
+
+async def _write_static_sitemap():
+    base = os.environ.get("PUBLIC_SITE_URL", "https://neuroeduca.preview.emergentagent.com")
+    urls = [
+        (f"{base}/", "1.0", "daily", None),
+        (f"{base}/sobre", "0.7", "monthly", None),
+        (f"{base}/categoria/spine", "0.9", "weekly", None),
+        (f"{base}/categoria/brain", "0.9", "weekly", None),
+        (f"{base}/categoria/prevention", "0.9", "weekly", None),
+    ]
+    async for d in db.articles.find({}, {"slug": 1, "published_at": 1, "_id": 0}).sort("published_at", -1):
+        urls.append((f"{base}/artigo/{d['slug']}", "0.8", "monthly", d.get("published_at", "")))
+
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>',
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for loc, prio, freq, lastmod in urls:
+        lines.append("  <url>")
+        lines.append(f"    <loc>{loc}</loc>")
+        if lastmod:
+            lines.append(f"    <lastmod>{lastmod}</lastmod>")
+        lines.append(f"    <changefreq>{freq}</changefreq>")
+        lines.append(f"    <priority>{prio}</priority>")
+        lines.append("  </url>")
+    lines.append("</urlset>")
+
+    public_path = Path("/app/frontend/public/sitemap.xml")
+    if public_path.parent.exists():
+        public_path.write_text("\n".join(lines))
+        logger.info("Wrote static sitemap.xml with %d URLs", len(urls))
+
 
 # -------- Routes --------
 @api_router.get("/")
@@ -141,6 +177,22 @@ async def featured():
     if not doc:
         raise HTTPException(404, "No articles available")
     return doc
+
+
+@api_router.get("/articles/{slug}/related", response_model=List[ArticleSummary])
+async def related_articles(slug: str, limit: int = 4):
+    current = await db.articles.find_one({"slug": slug}, {"category": 1, "_id": 0})
+    if not current:
+        raise HTTPException(404, "Article not found")
+    cursor = (
+        db.articles.find(
+            {"category": current["category"], "slug": {"$ne": slug}},
+            {"_id": 0, "content_html": 0},
+        )
+        .sort([("views", -1), ("published_at", -1)])
+        .limit(limit)
+    )
+    return await cursor.to_list(length=limit)
 
 
 @api_router.get("/articles/{slug}", response_model=Article)

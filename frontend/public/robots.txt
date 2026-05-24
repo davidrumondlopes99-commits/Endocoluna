@@ -1,13 +1,17 @@
 User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemaps
+Sitemap: https://neuroeduca.preview.emergentagent.com/sitemap.xml
 Sitemap: https://neuroeduca.preview.emergentagent.com/api/sitemap.xml
 
 # Important pages
 Allow: /artigo/
 Allow: /categoria/
 Allow: /sobre
+
+# Disallow query-based duplicate URLs (search)
+Disallow: /buscar?
 
 # Crawl delay (be polite)
 Crawl-delay: 1
