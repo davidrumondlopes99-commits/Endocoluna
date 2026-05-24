@@ -47,7 +47,7 @@ export default function Category({ searchMode = false }) {
     <div data-testid={searchMode ? "search-page" : `category-page-${slug}`}>
       <SEO
         title={meta.title}
-        description={meta.desc || `Artigos sobre ${meta.title.toLowerCase()} no NeuroSaúde, blog médico do Dr. Matheus Lopes.`}
+        description={meta.desc || `Artigos sobre ${meta.title.toLowerCase()} no EndoColuna Brasil, blog médico do Dr. Matheus Lopes.`}
         noindex={searchMode}
       />
       <section className="bg-white border-b border-slate-200">

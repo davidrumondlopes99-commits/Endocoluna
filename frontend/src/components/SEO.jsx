@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-const SITE_NAME = "NeuroSaúde";
+const SITE_NAME = "EndoColuna Brasil";
 const DEFAULT_DESC =
   "Blog médico especializado em Neurocirurgia e Cirurgia de Coluna. Conteúdo educacional baseado em evidências, escrito por Dr. Matheus Lopes (CRM/SP 147238).";
 const DEFAULT_IMAGE =

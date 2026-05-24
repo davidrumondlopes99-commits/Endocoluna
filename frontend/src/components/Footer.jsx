@@ -22,12 +22,14 @@ export const Footer = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
-                <Brain className="w-5 h-5 text-[#319795]" />
-              </div>
+            <div className="flex items-center gap-3 mb-4">
+              <img
+                src="https://customer-assets.emergentagent.com/job_neuroeduca/artifacts/98ca1v7u_Editedimage_1779582741709.png"
+                alt="EndoColuna Brasil"
+                className="h-12 w-12 object-contain bg-white/95 rounded-lg p-1"
+              />
               <div className="leading-tight">
-                <div className="font-bold text-xl">NeuroSaúde</div>
+                <div className="font-bold text-xl">EndoColuna <span className="text-[#319795]">Brasil</span></div>
                 <div className="text-[11px] uppercase tracking-[0.18em] text-[#319795] font-semibold">Blog Médico</div>
               </div>
             </div>
@@ -77,7 +79,7 @@ export const Footer = () => {
 
         <div className="border-t border-white/10 mt-10 pt-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <p className="text-xs text-slate-400">
-            © {new Date().getFullYear()} NeuroSaúde — Dr. Matheus Lopes (CRM/SP 147238). Todos os direitos reservados.
+            © {new Date().getFullYear()} EndoColuna Brasil — Dr. Matheus Lopes (CRM/SP 147238). Todos os direitos reservados.
           </p>
           <div className="flex items-center gap-3">
             <a data-testid="social-whatsapp" href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="w-9 h-9 rounded-full bg-white/5 hover:bg-[#25D366] flex items-center justify-center transition-colors">

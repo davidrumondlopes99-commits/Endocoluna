@@ -14,7 +14,7 @@ export default function About() {
     <div data-testid="about-page">
       <SEO
         title="Sobre o Blog"
-        description="Conheça o NeuroSaúde, blog médico do Dr. Matheus Lopes (Neurocirurgião, CRM/SP 147238), especialista em coluna e dor, com mais de 1.000 cirurgias endoscópicas realizadas."
+        description="Conheça o EndoColuna Brasil, blog médico do Dr. Matheus Lopes (Neurocirurgião, CRM/SP 147238), especialista em coluna e dor, com mais de 1.000 cirurgias endoscópicas realizadas."
       />
       <section className="bg-white border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
@@ -23,7 +23,7 @@ export default function About() {
             Ciência <span className="text-[#319795]">acessível</span> em Neurocirurgia e Cirurgia de Coluna.
           </h1>
           <p className="mt-6 text-lg text-slate-600 leading-relaxed">
-            O <strong>NeuroSaúde</strong> nasceu da constatação de que existe um abismo entre o que a literatura médica
+            O <strong>EndoColuna Brasil</strong> nasceu da constatação de que existe um abismo entre o que a literatura médica
             produz e o que chega de forma clara à população. Nossa missão é encurtar essa distância — com artigos
             longos, profundos, revisados por especialistas e sempre escritos pensando em quem está diante de um
             diagnóstico ou de uma dúvida importante.

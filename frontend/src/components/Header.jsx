@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Brain, Activity, Shield, Menu, X } from "lucide-react";
-import { Input } from "./ui/input";
+import { Search, Brain, Activity, Shield, Menu, X } from "lucide-react";import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -38,12 +37,14 @@ export const Header = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <Link to="/" data-testid="logo-link" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-[#1A365D] flex items-center justify-center group-hover:bg-[#319795] transition-colors">
-              <Brain className="w-5 h-5 text-white" />
-            </div>
+          <Link to="/" data-testid="logo-link" className="flex items-center gap-3 group">
+            <img
+              src="https://customer-assets.emergentagent.com/job_neuroeduca/artifacts/98ca1v7u_Editedimage_1779582741709.png"
+              alt="EndoColuna Brasil"
+              className="h-12 w-12 object-contain"
+            />
             <div className="leading-tight">
-              <div className="font-bold text-[#1A365D] text-xl tracking-tight">NeuroSaúde</div>
+              <div className="font-bold text-[#1A365D] text-xl tracking-tight">EndoColuna <span className="text-[#319795]">Brasil</span></div>
               <div className="text-[11px] uppercase tracking-[0.18em] text-[#319795] font-semibold">Blog Médico</div>
             </div>
           </Link>

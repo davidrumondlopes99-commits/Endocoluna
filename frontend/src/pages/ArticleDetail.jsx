@@ -4,6 +4,8 @@ import { Clock, Calendar, ChevronRight, ArrowLeft, Share2 } from "lucide-react";
 import { fetchArticle, CATEGORY_META, formatDate } from "../lib/api";
 import { Sidebar } from "../components/Sidebar";
 import { SEO } from "../components/SEO";
+import { ArticleVideo } from "../components/ArticleVideo";
+import { getRelatedVideo } from "../lib/youtubeMap";
 
 export default function ArticleDetail() {
   const { slug } = useParams();
@@ -36,6 +38,11 @@ export default function ArticleDetail() {
     let i = 0;
     return article.content_html.replace(/<h2>/g, () => `<h2 id="sec-${i++}">`);
   }, [article]);
+
+  const relatedVideo = useMemo(
+    () => (article ? getRelatedVideo({ slug: article.slug, title: article.title, category: article.category_label }) : null),
+    [article]
+  );
 
   if (loading) {
     return (
@@ -151,6 +158,8 @@ export default function ArticleDetail() {
               className="prose-article"
               dangerouslySetInnerHTML={{ __html: contentWithIds }}
             />
+
+            <ArticleVideo video={relatedVideo} />
 
             <div className="mt-12 pt-8 border-t border-slate-200 flex items-center justify-between">
               <Link to={`/categoria/${article.category}`} className="text-sm font-semibold text-[#319795] hover:text-[#1A365D]">

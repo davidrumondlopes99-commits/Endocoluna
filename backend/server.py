@@ -25,7 +25,7 @@ mongo_url = os.environ["MONGO_URL"]
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ["DB_NAME"]]
 
-app = FastAPI(title="NeuroSaúde Blog API")
+app = FastAPI(title="EndoColuna Brasil Blog API")
 api_router = APIRouter(prefix="/api")
 
 
@@ -95,7 +95,7 @@ async def seed_articles():
 # -------- Routes --------
 @api_router.get("/")
 async def root():
-    return {"message": "NeuroSaúde API ok"}
+    return {"message": "EndoColuna Brasil API ok"}
 
 
 CATEGORY_MAP = {
