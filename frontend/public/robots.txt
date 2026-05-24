@@ -2,8 +2,8 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://neuroeduca.preview.emergentagent.com/sitemap.xml
-Sitemap: https://neuroeduca.preview.emergentagent.com/api/sitemap.xml
+Sitemap: https://www.endocolunabrasil.com/sitemap.xml
+Sitemap: https://www.endocolunabrasil.com/api/sitemap.xml
 
 # Important pages
 Allow: /artigo/
