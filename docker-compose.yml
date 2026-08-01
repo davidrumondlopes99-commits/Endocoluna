@@ -1,0 +1,58 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: endocoluna-mongo
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - endocoluna
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: endocoluna-backend
+    restart: unless-stopped
+    environment:
+      MONGO_URL: "mongodb://mongo:27017"
+      DB_NAME: "endocoluna"
+      CORS_ORIGINS: "*"
+      PUBLIC_SITE_URL: "https://www.endocolunabrasil.com"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - endocoluna
+    # Expose only for internal network. Uncomment ports below to reach directly from host.
+    # ports:
+    #   - "8001:8001"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # Empty => frontend uses relative /api URLs proxied by nginx to backend
+        REACT_APP_BACKEND_URL: ""
+    container_name: endocoluna-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks:
+      - endocoluna
+
+networks:
+  endocoluna:
+    driver: bridge
+
+volumes:
+  mongo_data:
+    driver: local
