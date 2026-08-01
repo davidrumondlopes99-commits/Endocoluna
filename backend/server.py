@@ -107,7 +107,7 @@ async def _write_static_sitemap():
         (f"{base}/categoria/brain", "0.9", "weekly", None),
         (f"{base}/categoria/prevention", "0.9", "weekly", None),
     ]
-    async for d in db.articles.find({}, {"slug": 1, "published_at": 1, "_id": 0}).sort("published_at", -1):
+    async for d in db.articles.find({}, {"slug": 1, "published_at": 1, "_id": 0}).sort("published_at", -1).limit(1000):
         urls.append((f"{base}/artigo/{d['slug']}", "0.8", "monthly", d.get("published_at", "")))
 
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
@@ -224,7 +224,7 @@ async def sitemap():
         {"loc": f"{base}/categoria/brain", "priority": "0.9", "changefreq": "weekly"},
         {"loc": f"{base}/categoria/prevention", "priority": "0.9", "changefreq": "weekly"},
     ]
-    async for doc in db.articles.find({}, {"slug": 1, "published_at": 1, "_id": 0}).sort("published_at", -1):
+    async for doc in db.articles.find({}, {"slug": 1, "published_at": 1, "_id": 0}).sort("published_at", -1).limit(1000):
         urls.append({
             "loc": f"{base}/artigo/{doc['slug']}",
             "lastmod": doc.get("published_at", ""),
