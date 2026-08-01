@@ -34,10 +34,10 @@ export default function About() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h2 className="text-3xl font-bold text-[#1A365D] mb-10">Nossos valores editoriais</h2>
         <div className="grid sm:grid-cols-2 gap-6">
-          {values.map((v, i) => {
+          {values.map((v) => {
             const Icon = v.icon;
             return (
-              <div key={i} className="bg-white border border-slate-200 rounded-xl p-6 article-card-hover">
+              <div key={v.title} className="bg-white border border-slate-200 rounded-xl p-6 article-card-hover">
                 <div className="w-11 h-11 rounded-xl bg-[#319795]/10 flex items-center justify-center mb-4">
                   <Icon className="w-5 h-5 text-[#319795]" />
                 </div>

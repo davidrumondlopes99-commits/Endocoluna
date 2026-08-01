@@ -1,0 +1,40 @@
+{
+  "summary": "Frontend regression testing after DOMPurify sanitization, About.jsx key fix and craco.config visual-edits fallback. All targeted checks PASSED. Article rendering, TOC scroll with preserved sec-N IDs, YouTube embed, related articles, About values (4 cards no duplication), Home hero+grid+sidebar, Category /spine pagination (12 → 24 → 39), sitemap.xml (74 URLs) and robots.txt all verified successfully.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_results": {
+    "article_page": {
+      "content_rendered": true,
+      "tag_counts": {"h2": 6, "h3": 1, "p": 21, "ul": 7, "li": 29, "strong": 20, "em": 3},
+      "toc_present": true,
+      "toc_links": 6,
+      "h2_ids_preserved": ["sec-0","sec-1","sec-2","sec-3","sec-4","sec-5"],
+      "toc_click_scroll_worked": "scrollY=1967 after clicking #sec-0",
+      "video_embed": "youtube-nocookie iZToD_heajM loaded",
+      "related_articles": "present with 4 cards",
+      "console_errors": 0
+    },
+    "about_page": {"values_cards": "4 unique, no duplicates", "console_errors": 0},
+    "home_page": {"hero": true, "article_cards": 12, "most_read": true, "editor_widget": true, "youtube_widget": true, "console_errors": 0},
+    "category_spine": {"initial": 12, "after_1_click": 24, "final_after_all_clicks": 39, "expected": 39, "passed": true},
+    "sitemap": {"status": 200, "content_type": "application/xml", "url_count": 74, "domain": "https://www.endocolunabrasil.com/"},
+    "robots_txt": {"status": 200, "sitemap_line_present": true, "domain": "www.endocolunabrasil.com"}
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "DOMPurify allowlist preserves h2 IDs correctly — TOC scroll continues to work.",
+    "About.jsx now uses key=v.title, values render uniquely without duplication.",
+    "No console errors observed on any tested page."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (skipped)", "frontend": "100%"},
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "All 8 required frontend checks passed on desktop 1920x1080. If DOMPurify allowlist is modified in the future, re-verify that h2 IDs (id=sec-N) survive sanitization since TOC anchor scrolling depends on them."
+}

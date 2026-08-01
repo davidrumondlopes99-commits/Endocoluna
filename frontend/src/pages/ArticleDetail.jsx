@@ -8,6 +8,13 @@ import { SEO } from "../components/SEO";
 import { ArticleVideo } from "../components/ArticleVideo";
 import { RelatedArticles } from "../components/RelatedArticles";
 import { getRelatedVideo } from "../lib/youtubeMap";
+import DOMPurify from "dompurify";
+
+// Allowlist for article HTML: keeps the tags actually used in articles + id anchors for TOC
+const SANITIZE_CONFIG = {
+  ALLOWED_TAGS: ["p", "h2", "h3", "h4", "ul", "ol", "li", "strong", "em", "b", "i", "br", "a", "blockquote"],
+  ALLOWED_ATTR: ["id", "href", "title", "target", "rel"],
+};
 
 export default function ArticleDetail() {
   const { slug } = useParams();
@@ -38,7 +45,8 @@ export default function ArticleDetail() {
   const contentWithIds = useMemo(() => {
     if (!article?.content_html) return "";
     let i = 0;
-    return article.content_html.replace(/<h2>/g, () => `<h2 id="sec-${i++}">`);
+    const withIds = article.content_html.replace(/<h2>/g, () => `<h2 id="sec-${i++}">`);
+    return DOMPurify.sanitize(withIds, SANITIZE_CONFIG);
   }, [article]);
 
   const relatedVideo = useMemo(
