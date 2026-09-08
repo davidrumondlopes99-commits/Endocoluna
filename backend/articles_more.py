@@ -10,20 +10,39 @@ AUTHOR = "Dr. Matheus Lopes"
 DISCLAIMER = '<p><em>Este artigo tem caráter exclusivamente educacional e não substitui a avaliação médica individualizada.</em></p>'
 
 
-def make(slug, title, excerpt, category, image, reading_time, published_at, content):
-    label = {"spine": "Coluna", "brain": "Cérebro", "prevention": "Prevenção"}[category]
-    return {
-        "slug": slug,
-        "title": title,
-        "excerpt": excerpt,
-        "category": category,
-        "category_label": label,
-        "image_url": image,
-        "reading_time": reading_time,
-        "published_at": published_at,
-        "author": AUTHOR,
-        "content_html": content + DISCLAIMER,
-    }
+from dataclasses import dataclass
+
+CATEGORY_LABELS = {"spine": "Coluna", "brain": "Cérebro", "prevention": "Prevenção"}
+
+
+@dataclass(frozen=True)
+class ArticleSpec:
+    slug: str
+    title: str
+    excerpt: str
+    category: str
+    image: str
+    reading_time: int
+    published_at: str
+    content: str
+
+    def to_doc(self) -> dict:
+        return {
+            "slug": self.slug,
+            "title": self.title,
+            "excerpt": self.excerpt,
+            "category": self.category,
+            "category_label": CATEGORY_LABELS[self.category],
+            "image_url": self.image,
+            "reading_time": self.reading_time,
+            "published_at": self.published_at,
+            "author": AUTHOR,
+            "content_html": self.content + DISCLAIMER,
+        }
+
+
+def make(*args) -> dict:
+    return ArticleSpec(*args).to_doc()
 
 
 EXTRA_ARTICLES = [

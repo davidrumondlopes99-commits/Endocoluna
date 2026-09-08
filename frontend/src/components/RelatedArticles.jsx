@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Clock } from "lucide-react";
 import { fetchRelatedArticles, CATEGORY_META, formatDate } from "../lib/api";
@@ -7,7 +7,7 @@ export const RelatedArticles = ({ slug, category }) => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!slug) return;
     setLoading(true);
     fetchRelatedArticles(slug, 4)
@@ -15,6 +15,10 @@ export const RelatedArticles = ({ slug, category }) => {
       .catch(() => setItems([]))
       .finally(() => setLoading(false));
   }, [slug]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
 
   if (!loading && items.length === 0) return null;
 
