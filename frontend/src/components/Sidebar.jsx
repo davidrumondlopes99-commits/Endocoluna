@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Award, BookOpen, TrendingUp, Instagram, MessageCircle, Youtube, Play, ExternalLink } from "lucide-react";
 import { fetchMostRead, fetchYouTubeVideos, CATEGORY_META } from "../lib/api";
@@ -69,9 +69,10 @@ const EditorWidget = () => (
 
 const MostRead = () => {
   const [items, setItems] = useState([]);
+  const load = useCallback(() => fetchMostRead(4).then(setItems).catch(() => setItems([])), []);
   useEffect(() => {
-    fetchMostRead(4).then(setItems).catch(() => setItems([]));
-  }, []);
+    load();
+  }, [load]);
   if (!items.length) return null;
   return (
     <div data-testid="most-read-widget" className="bg-white border border-slate-200 rounded-xl p-6">
@@ -112,12 +113,17 @@ const Newsletter = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const load = useCallback(
+    () =>
+      fetchYouTubeVideos(4)
+        .then(setVideos)
+        .catch(() => setVideos([]))
+        .finally(() => setLoading(false)),
+    []
+  );
   useEffect(() => {
-    fetchYouTubeVideos(4)
-      .then(setVideos)
-      .catch(() => setVideos([]))
-      .finally(() => setLoading(false));
-  }, []);
+    load();
+  }, [load]);
 
   return (
     <div

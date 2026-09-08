@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Clock, Calendar, ShieldCheck, BookOpen, Sparkles } from "lucide-react";
 import { fetchArticles, fetchFeatured, CATEGORY_META, formatDate } from "../lib/api";
@@ -111,14 +111,21 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(12);
 
-  useEffect(() => {
-    Promise.all([fetchArticles({ limit: 100 }), fetchFeatured()])
-      .then(([list, feat]) => {
-        setArticles(list);
-        setFeatured(feat);
-      })
-      .finally(() => setLoading(false));
+  const load = useCallback(async () => {
+    try {
+      const [list, feat] = await Promise.all([fetchArticles({ limit: 100 }), fetchFeatured()]);
+      setArticles(list);
+      setFeatured(feat);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  const showMore = useCallback(() => setVisibleCount((c) => c + 12), []);
 
   return (
     <div data-testid="home-page">
@@ -164,7 +171,7 @@ export default function Home() {
                 {visibleCount < articles.length && (
                   <div className="flex justify-center mt-10">
                     <button
-                      onClick={() => setVisibleCount((c) => c + 12)}
+                      onClick={showMore}
                       data-testid="load-more-articles"
                       className="inline-flex items-center gap-2 bg-[#1A365D] hover:bg-[#319795] text-white font-semibold px-7 py-3 rounded-full transition-colors"
                     >

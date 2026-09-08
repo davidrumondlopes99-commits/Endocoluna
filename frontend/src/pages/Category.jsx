@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { useParams, useSearchParams, Link } from "react-router-dom";
 import { fetchArticles, CATEGORY_META } from "../lib/api";
 import { ArticleCard } from "../components/ArticleCard";
@@ -28,14 +28,24 @@ export default function Category({ searchMode = false }) {
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(12);
 
-  useEffect(() => {
+  const load = useCallback(async () => {
     setLoading(true);
     setVisibleCount(12);
     const filters = searchMode ? { q, limit: 100 } : { category: slug, limit: 100 };
-    fetchArticles(filters)
-      .then(setArticles)
-      .finally(() => setLoading(false));
+    try {
+      setArticles(await fetchArticles(filters));
+    } catch {
+      setArticles([]);
+    } finally {
+      setLoading(false);
+    }
   }, [slug, q, searchMode]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  const showMore = useCallback(() => setVisibleCount((c) => c + 12), []);
 
   const meta = useMemo(() => META[slug] || {
     title: searchMode ? `Resultados para "${q}"` : "Categoria",
@@ -90,7 +100,7 @@ export default function Category({ searchMode = false }) {
                 {visibleCount < articles.length && (
                   <div className="flex justify-center mt-10">
                     <button
-                      onClick={() => setVisibleCount((c) => c + 12)}
+                      onClick={showMore}
                       data-testid="load-more-category"
                       className="inline-flex items-center gap-2 bg-[#1A365D] hover:bg-[#319795] text-white font-semibold px-7 py-3 rounded-full transition-colors"
                     >
