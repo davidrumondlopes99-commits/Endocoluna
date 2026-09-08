@@ -29,25 +29,25 @@ services:
         condition: service_healthy
     networks:
       - endocoluna
-    # Expose only for internal network. Uncomment ports below to reach directly from host.
-    # ports:
-    #   - "8001:8001"
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        # Empty => frontend uses relative /api URLs proxied by nginx to backend
         REACT_APP_BACKEND_URL: ""
     container_name: endocoluna-frontend
     restart: unless-stopped
     depends_on:
       - backend
-    ports:
-      - "80:80"
     networks:
       - endocoluna
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.endocoluna.rule=Host(`www.endocolunabrasil.com`) || Host(`endocolunabrasil.com`)"
+      - "traefik.http.routers.endocoluna.entrypoints=websecure"
+      - "traefik.http.routers.endocoluna.tls.certresolver=letsencrypt"
+      - "traefik.http.services.endocoluna.loadbalancer.server.port=80"
 
 networks:
   endocoluna:
